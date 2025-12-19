@@ -1,4 +1,4 @@
-resource "azurerm_subnet" "frontend_subnet" {
+resource "azurerm_subnet" "first_subnet" {
   for_each             = var.subnet
   name                 = each.value.name
   virtual_network_name = each.value.virtual_network_name

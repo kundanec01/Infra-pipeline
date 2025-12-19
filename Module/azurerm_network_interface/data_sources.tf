@@ -5,7 +5,7 @@ data "azurerm_public_ip" "pip" {
     resource_group_name = each.value.resource_group_name
 }
 
-data "azurerm_subnet" "frontend_subnet" {
+data "azurerm_subnet" "first_subnet" {
   for_each = var.nic
 
   name                 = each.value.name_snet
