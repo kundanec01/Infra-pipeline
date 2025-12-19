@@ -49,7 +49,7 @@ nic = {
     name_ip                       = "zenips"
     private_ip_address_allocation = "Dynamic"
     name_pip                      = "kk-vm-pip"
-    name_snet                     = "frontend-subnet"
+    name_snet                     = "first-subnet"
     name_vnet                     = "kk-vnet"
     name_nsg                      = "kk-nsg"
   }
