@@ -1,0 +1,112 @@
+trigger: none
+
+pool: agent-ka-jhoond
+
+stages:
+  - stage: initial
+    displayName: "init-fmt-validate"
+    jobs:
+      - job: initial
+        displayName: "init-fmt-validate"
+        steps:
+        - task: TerraformInstaller@1
+          displayName: terraform install
+          inputs:
+            terraformVersion: 'latest'
+
+        - task: TerraformTask@5
+          displayName: init
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+            backendServiceArm: 'kk-ka-serviceconnection'
+            backendAzureRmOverrideSubscriptionID: '3f7835c1-a9cb-445d-b664-2abc356642bd'
+            backendAzureRmResourceGroupName: 'kundan-rg'
+            backendAzureRmStorageAccountName: 'kkstorageaccn123'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'dev.tfstate'
+
+        - task: TerraformTask@5
+          displayName: validate
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+
+        - task: TerraformTask@5
+          displayName: fmt
+          inputs:
+            provider: 'azurerm'
+            command: 'custom'
+            commandOptions: 'fmt -recursive'
+            outputTo: 'console'
+            environmentServiceNameAzureRM: 'kk-ka-serviceconnection'
+
+  - stage: plan
+    displayName: plan
+    jobs:
+      - job: plan
+        displayName: "plan"
+        steps:  
+        - task: TerraformTask@5
+          displayName: init
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+            backendServiceArm: 'kk-ka-serviceconnection'
+            backendAzureRmOverrideSubscriptionID: '3f7835c1-a9cb-445d-b664-2abc356642bd'
+            backendAzureRmResourceGroupName: 'kundan-rg'
+            backendAzureRmStorageAccountName: 'kkstorageaccn123'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'dev.tfstate'
+
+        - task: TerraformTask@5
+          displayName: plan
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+            environmentServiceNameAzureRM: 'kk-ka-serviceconnection'
+
+  - stage: manual_validation
+    jobs:
+      - job: "manual_validation"
+        displayName: "manual_validation"
+        pool: server
+        steps:
+        - task: ManualValidation@1
+          displayName: manual_validation
+          inputs:
+            notifyUsers: 'rahulpateriya287@gmail.com'
+            approvers: 'kundanec7@gmail.com'
+            instructions: 'Hi Kindly approve the job'
+
+  - stage: apply
+    displayName: apply
+    jobs:
+      - job: apply
+        displayName: "apply"
+        steps:  
+        - task: TerraformTask@5
+          displayName: init
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+            backendServiceArm: 'kk-ka-serviceconnection'
+            backendAzureRmOverrideSubscriptionID: '3f7835c1-a9cb-445d-b664-2abc356642bd'
+            backendAzureRmResourceGroupName: 'kundan-rg'
+            backendAzureRmStorageAccountName: 'kkstorageaccn123'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'dev.tfstate'
+
+        - task: TerraformTask@5
+          displayName: apply
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+            environmentServiceNameAzureRM: 'kk-ka-serviceconnection'
+
