@@ -26,13 +26,13 @@ vnet = {
 
 subnet = {
   subnet1 = {
-    name                 = "frontend-subnet1"
+    name                 = "frontend-subnet"
     virtual_network_name = "kundan-vnet"
     resource_group_name  = "kk-rg"
     address_prefixes     = ["10.0.1.0/26"]
   }
   subnet2 = {
-    name                 = "backend-subnet2"
+    name                 = "backend-subnet"
     virtual_network_name = "kundan-vnet"
     resource_group_name  = "kk-rg"
     address_prefixes     = ["10.0.2.0/26"]
@@ -57,7 +57,7 @@ nic = {
 
 pip = {
   pip1 = {
-    name                = "zenai-vm-pip"
+    name                = "kk-vm-pip"
     resource_group_name = "kk-rg"
     location            = "westus"
     allocation_method   = "Static"
@@ -66,7 +66,7 @@ pip = {
 
 nsg = {
   nsg1 = {
-    name_nsg               = "zenai-nsg"
+    name_nsg               = "kk-nsg"
     resource_group_name    = "kk-rg"
     location               = "westus"
     name_security_rule     = "sec"
@@ -78,7 +78,7 @@ nsg = {
 
 kv = {
   kv1 = {
-    name_kv            = "rajkeyvault1245803"
+    name_kv            = "kundankeyvault1245803"
     name_rg            = "kk-rg"
     location           = "westus"
     sku_name           = "standard"
