@@ -6,10 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "kundan-rg"
-    storage_account_name = "kkstorageaccn123"
-    container_name       = "tfstate"
-    key                  = "dev.tfstate"
+    
   }
 }
 
