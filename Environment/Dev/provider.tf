@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "kundan-rg"
     storage_account_name = "kkstorageaccn123"
     container_name       = "tfstate"
-    key                  = "dev/terraform.tfstate"
+    key                  = "dev.tfstate"
   }
 }
 
