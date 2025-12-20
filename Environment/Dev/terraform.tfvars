@@ -41,8 +41,6 @@ subnet = {
 
 nic = {
   nic1 = {
-    id                            = "/subscriptions/<sub-id>/resourceGroups/kk-rg/providers/Microsoft.Network/networkInterfaces/kkvm-nic"
-    name                          = "kkvm-nic"
     name_nic                      = "kkvm-nic"
     resource_group_name           = "kk-rg"
     location                      = "westus"

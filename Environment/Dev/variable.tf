@@ -78,7 +78,9 @@ variable "nic" {
   }))
 }
 
-
+# variable "subnet_ids" {
+#   type = map(string)
+# }
 
 variable "kv" {
 
